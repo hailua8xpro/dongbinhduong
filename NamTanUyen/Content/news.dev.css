@@ -1,0 +1,139 @@
+﻿blockquote{
+    padding:10px;
+    background-color:#fafafa;
+}
+.newsitem {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: dotted 1px #ccc;
+}
+
+    .newsitem h2 {
+        margin-top: 0;
+        font-size: 18px;
+    }
+
+        .newsitem h2 a {
+            color: #333;
+            font-weight: 700;
+        }
+
+    .newsitem p {
+        color: #444;
+    }
+
+    .newsitem h2 a:hover {
+        text-decoration: none;
+    }
+
+    .newsitem img {
+        width: 100%;
+        height: auto;
+        margin-bottom:10px;
+    }
+
+    .newsitem ul {
+        margin: 0;
+        padding: 0;
+    }
+
+        .newsitem ul li {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 15px;
+            list-style: square;
+            color: #808080;
+        }
+
+    .price strong {
+        color: red;
+    }
+
+.relatedproduct img {
+    width: 100%;
+}
+
+.wrrpl {
+    width: 100px;
+    margin-right: 10px;
+    float: left;
+}
+
+.wrrpr {
+    width: calc(100% - 110px);
+    float: left;
+}
+
+    .wrrpr a {
+        font-size: 14px;
+        color: #333;
+        position:relative;
+        top:-4px;
+    }
+
+.relatedproduct h3 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 1em 0;
+}
+
+    .relatedproduct h3:first-of-type {
+        margin-top: 0;
+    }
+
+.latestnews h3 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+}
+.latestnews img{
+    width:100%;
+}
+.latestnews h4 {
+    font-size: 16px;
+    font-weight: normal;
+}
+.latestnews h4 a{
+    color: #555;
+    position: relative;
+    top: -5px;
+}
+.relatedproduct {
+    margin-bottom: 1em;
+}
+
+.newsdetailcontent img {
+    display: block;
+    max-width: 100%;
+    margin: 16px auto;
+}
+.newsdetailcontent p{line-height:20px;}
+h1{
+    font-size:24px;
+}
+h3{
+    font-size:22px;
+}
+.wrlnl {
+    width: 100px;
+    margin-right: 10px;
+    float: left;
+}
+
+.wrlnr {
+    width: calc(100% - 110px);
+    float: left;
+}
+.news-item {
+    padding: 10px;
+    border-bottom: solid 1px #e5e5e5;
+}
+.wrheader {
+    padding: 10px;
+}
+.imagedes{
+    background-color:transparent;
+    text-align:center;
+    font-style:italic;
+}

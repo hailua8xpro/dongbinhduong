@@ -1,0 +1,190 @@
+﻿@model NamTanUyen.Models.Product
+@{
+    var images = Model.ProductImage;
+    var relatedproducts = ViewBag.RelatestProduct as IEnumerable<NamTanUyen.Models.Product>;
+    var news = ViewBag.LatestNews as IEnumerable<NamTanUyen.Models.News>;
+}
+@section css{
+
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/lib/fotorama-4.6.4/fotorama.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+    <link href="~/Content/reponsive.css" rel="stylesheet" />
+    <link href="~/Content/menu.dev.css" rel="stylesheet" />
+    <link href="~/Content/product.dev.css" rel="stylesheet" />
+    <link href="~/Content/productitem.css" rel="stylesheet" />
+    <link href="~/Content/productdetail.dev.css" rel="stylesheet" />*@
+<link href="~/Content/productdetail.min.css" rel="stylesheet" />
+
+}
+@section js{
+    <script>
+        var productid = '@Model.ProductId';
+    </script>
+    <script src="~/Scripts/productdetail.min.js"></script>
+}
+<div class="container">
+    <div class="breadcrumb pl-0 my-2">
+        <a href="/" title="Return to Home">Trang chủ &nbsp;</a>
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <a href="/@Model.ProductObject.ProductObjectUrl" title="@Model.ProductObject.ProductObjectName">@Model.ProductObject.ProductObjectName &nbsp;</a>
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <span class="navigation_page">
+            @Model.ProductName
+        </span>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="wrsd">
+                <div class="fotorama"
+                     data-nav="thumbs" data-thumbwidth="200" data-thumbheight="100" data-allowfullscreen="true">
+                    @if (images != null && images.Any())
+                    {
+                        foreach (var item in images)
+                        {
+                            <a href="@item.ImageUrl"> <img src="@item.ImageUrl" alt="@Model.ProductName" /></a>
+                        }
+                    }
+                    @if (!string.IsNullOrEmpty(Model.VideoUrl))
+                    {
+                        <a href="@Model.VideoUrl"><img src="@Model.ImageUrl" alt="@Model.ProductName" /></a>
+
+                    }
+                </div>
+                <div class="wrdetail">
+                    <h2 class="h6 my-3">@Model.ProductDesciption</h2>
+                    @Html.Raw(Model.Map)
+
+                    <div class="mt-3">
+                        @Html.Raw(Model.Content)
+                    </div>
+            </div>
+                <div class="fb-comments" data-width="100%" data-href="@(ViewBag.MetaModel.URL)" data-numposts="5"></div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="box-middle-info shadow">
+            <h1>@Model.ProductName</h1>
+            <ul class="list-unstyled">
+                <li>Diện tích: @Model.Area m<sup>2</sup> (@Model.Ratio)</li>
+                <li>Thổ cư: @Model.Area2 m<sup>2</sup></li>
+            </ul>
+            @if (Model.Price > 0)
+            {
+                <p class="price">@Library.Helper.CommonHelper.FormatCurrency(Model.Price.Value).Replace(",00", string.Empty)</p>
+            }
+            else
+            {
+                <p class="price">Giá: Liên Hệ</p>
+            }
+            <p class="callme">
+                <a href="tel:@Model.Phone" class="callus"><i class="fa fa-mobile"></i>  @Model.Phone</a>
+            </p>
+        </div>
+
+        <div class="boxnews shadow">
+            <div class="clearfix wrheader">
+                <div class="float-left">
+                    <h2>Tin tức</h2>
+                </div>
+                <div class="float-right">
+                    <a href="/tin-tuc"><i class="fa fa-plus"></i> Xem thêm</a>
+                </div>
+            </div>
+            @if (news != null && news.Any())
+            {
+                foreach (var item in news)
+                {
+                    <div class="news-item">
+                        <a href="/tin-tuc/@item.NewsUrl-@item.NewsId">
+                            <img src="@item.ImageUrl" alt="@item.Title" />
+                        </a>
+                        <h3><a href="/tin-tuc/@item.NewsUrl-@item.NewsId">@item.Title</a></h3>
+                        <p><small><i class="fa fa-calendar"></i> @string.Format("{0:dd/MM/yyyy}", item.CreatedDate)</small></p>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@if (relatedproducts != null && relatedproducts.Any())
+{
+    <div class="row my-3">
+        <div class="col-12">
+            <p class="prelated"><i class="fa fa-plus-square"></i> Sản phẩm tương tự</p>
+        </div>
+    </div>
+        <div class="row list-product">
+            @foreach (var item in relatedproducts)
+            {
+                var mainprops = item.ProductProperty.Where(x => x.PropertyDetail.Property.IsMainProp == true);
+                string href = "";
+                if (item.ProductCategory != null && item.ProductGroup != null)
+                {
+                    href = string.Format("/{0}/{1}/{2}/{3}/{4}", item.ProductObject.ProductObjectUrl, item.ProductCategory.ProductCategoryNameUrl, item.ProductGroup.ProductGroupUrl, item.ProductId, item.ProductNameUrl);
+                }
+                else if (item.ProductGroup == null)
+                {
+                    href = string.Format("/{0}/{1}/{2}/{3}", item.ProductObject.ProductObjectUrl, item.ProductCategory.ProductCategoryNameUrl, item.ProductId, item.ProductNameUrl);
+                }
+                else
+                {
+                    href = string.Format("/{0}/{1}/{2}", item.ProductObject.ProductObjectUrl, item.ProductId, item.ProductNameUrl);
+                }
+                <div class="col-md-4">
+                    <div class="productitem">
+
+                        <a href="@href">
+                            <img src="@item.ImageUrl" alt="@item.ProductName" />
+                        </a>
+                        @if (mainprops != null && mainprops.Any())
+                        {
+
+                            <div class="text-center">
+                                <ul class="list-unstyled list-inline list-main-prop">
+                                    @foreach (var item2 in mainprops)
+                                    {
+                                        <li class="list-inline-item">
+                                            @item2.PropertyDetail.PropertyValue
+                                        </li>
+                                    }
+                                </ul>
+                            </div>   }
+                        <p class="product-name"><a href="@href">@item.ProductName</a></p>
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item">Diện tích:<b> @item.Area m<sup>2</sup></b> (@item.Ratio)</li>
+                            @if (item.Area2 > 0)
+                            {
+                                <li class="list-inline-item">Thổ cư:<b> @item.Area2 m<sup>2</sup></b></li>
+                            }
+                        </ul>
+
+                        <div class="row item-bottom">
+                            <div class="col-6">
+                                @if (item.Price.HasValue && item.Price > 0)
+                                {
+                                    <p class="product-price">@Library.Helper.CommonHelper.FormatCurrency(item.Price.Value).Replace(",00", string.Empty)</p>
+
+                                }
+                                else
+                                {
+                                    <p class="product-price">Giá: Liên Hệ</p>
+
+                                }
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="@href" class="addtocart">Xem chi tiết</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        </div>
+}
+</div>

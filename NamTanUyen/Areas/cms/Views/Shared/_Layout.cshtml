@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- Page level plugin CSS-->
+    <link href="~/Areas/cms/Content/cms_theme/css/sb-admin.min.css" rel="stylesheet" />
+    <link href="~/Areas/cms/Content/global.css" rel="stylesheet" />
+    @RenderSection("css", false)
+
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a class="navbar-brand" href="index.html">ProCMS</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProjectImage" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-photo"></i>
+                        <span class="nav-link-text">Hình ảnh, video</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseProjectImage">
+                        <li>
+                            <a href="/cms/projectimages">Danh sách</a>
+                        </li>
+                        <li>
+                            <a href="/cms/projectimages/create">Thêm mới</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseBanners" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-photo"></i>
+                        <span class="nav-link-text">Banner</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseBanners">
+                        <li>
+                            <a href="/cms/banners">Danh sách</a>
+                        </li>
+                        <li>
+                            <a href="/cms/banners/create">Thêm mới</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseNews" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-hacker-news"></i>
+                        <span class="nav-link-text">Tin tức</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseNews">
+
+                        <li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseNews1">Loại tin tức</a>
+                            <ul class="sidenav-third-level collapse" id="collapseNews1">
+                                <li>
+                                    <a href="/cms/newscategories">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/newscategories/create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseNews2">Tin tức</a>
+                            <ul class="sidenav-third-level collapse" id="collapseNews2">
+                                <li>
+                                    <a href="/cms/News">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/News/Create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProduct" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-product-hunt"></i>
+                        <span class="nav-link-text">Sản phẩm</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseProduct">
+                        
+                        @*<li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProduct1">Thương hiệu</a>
+                            <ul class="sidenav-third-level collapse" id="collapseProduct1">
+                                <li>
+                                    <a href="/cms/Brands">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/Brands/Create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>*@
+                        <li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProductObject">Đối tượng sản phẩm</a>
+                            <ul class="sidenav-third-level collapse" id="collapseProductObject">
+                                <li>
+                                    <a href="/cms/ProductObjects">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/ProductObjects/Create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProductCate">Loại sản phẩm</a>
+                            <ul class="sidenav-third-level collapse" id="collapseProductCate">
+                                <li>
+                                    <a href="/cms/ProductCategories">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/ProductCategories/Create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProductGroup">Nhóm sản phẩm</a>
+                            <ul class="sidenav-third-level collapse" id="collapseProductGroup">
+                                <li>
+                                    <a href="/cms/ProductGroups">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/ProductGroups/Create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProduct2">Sản phẩm</a>
+                            <ul class="sidenav-third-level collapse" id="collapseProduct2">
+                                <li>
+                                    <a href="/cms/Products">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/Products/Create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProperty">Thuộc tính</a>
+                            <ul class="sidenav-third-level collapse" id="collapseProperty">
+                                <li>
+                                    <a href="/cms/Properties">Danh sách</a>
+                                </li>
+                                <li>
+                                    <a href="/cms/Properties/Create">Thêm mới</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseOrder" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-shopping-cart"></i>
+                        <span class="nav-link-text">Đơn hàng</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseOrder">
+                        <li>
+                            <a href="/cms/orders">Danh sách</a>
+                        </li>
+                        <li>
+                            <a href="/cms/orders">Thêm mới</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item"  data-placement="right" title="Example Pages">
+                    <a class="nav-link" href="/cms/commoninfoes/edit/1">
+                        <i class="fa fa-fw fa-file-text"></i>
+                        <span class="nav-link-text">Thông tin chung</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseStaticPage" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-file-text"></i>
+                        <span class="nav-link-text">Trang tĩnh</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseStaticPage">
+                        <li>
+                            <a href="/cms/staticpages">Danh sách</a>
+                        </li>
+                        <li>
+                            <a href="/cms/staticpages/create">Thêm mới</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAdmin" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-user"></i>
+                        <span class="nav-link-text">Quản trị viên</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseAdmin">
+                        <li>
+                            <a href="/cms/adminusers">Danh sách</a>
+                        </li>
+                        <li>
+                            <a href="/cms/adminusers/create">Thêm mới</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav sidenav-toggler">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="form-inline my-2 my-lg-0 mr-lg-2">
+                        <div class="input-group">
+                            <input class="form-control" name="kw" id="kw" type="text" placeholder="Tìm sản phẩm">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" id="btnSearch" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-user"></i>
+                        Tài khoản
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+                        <a class="dropdown-item" href="/cms/adminusers/ChangePassword">
+                            Đổi mật khẩu
+                        </a>
+                        <a class="dropdown-item" href="/cms/adminusers/signout">
+                            Thoát
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+        <!-- /.container-fluid-->
+        <!-- /.content-wrapper-->
+        <footer class="sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>Copyright © ProCMS @DateTime.Now.Year</small>
+                </div>
+            </div>
+        </footer>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+        <!-- Bootstrap core JavaScript-->
+        <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+        <script src="~/Areas/cms/Content/cms_theme/vendor/popper/popper.min.js"></script>
+        <script src="~/Scripts/bootstrap.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="~/Areas/cms/Content/cms_theme/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Page level plugin JavaScript-->
+        <!-- Custom scripts for all pages-->
+        <script src="~/Areas/cms/Content/cms_theme/js/sb-admin.min.js"></script>
+        <!-- Custom scripts for this page-->
+        <script src="~/Scripts/common.js"></script>
+        <script src="~/Areas/cms/Scripts/global.js"></script>
+        @RenderSection("js", false)
+        <script>
+            $(document).ready(function () {
+                $('#btnSearch').click(function (e) {
+                    var kw = $('#kw').val();
+                    if (kw=='') {
+                        return false;
+                    }
+                    location.href = '/cms/products/search?kw=' + kw;
+                })
+            })
+        </script>
+    </div>
+    <div id="dlding"><span class="throbber"></span><p>Đang xử lý... Vui lòng chờ trong giây lát.</p></div>
+</body>
+</html>

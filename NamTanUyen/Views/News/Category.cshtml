@@ -1,0 +1,55 @@
+﻿@model IEnumerable<NamTanUyen.Models.News>
+@{
+    var pager = ViewBag.Pager as NamTanUyen.ViewModels.PagerViewModel;
+    var cate = ViewBag.Cate as NamTanUyen.Models.NewsCategory;
+}
+@section css{
+    <link href="~/Content/home.min.css" rel="stylesheet" />
+}
+@section js{
+
+    <script src="~/Scripts/new.min.js"></script>
+    
+}
+<div class="container">
+    <div class="breadcrumb pl-0">
+        <a class="green" href="/" title="Return to Home">Trang chủ &nbsp;</a>
+
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <a class="green" href="/tin-tuc" title="Tin tức">Tin tức</a>
+
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <span class="navigation_page">
+            @cate.CategoryName
+        </span>
+    </div>
+    <div class="row lst-new">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="news-item">
+                        <a href="/tin-tuc/@item.NewsCategory.CategoryUrl/@item.NewsUrl-@item.NewsId">
+                            <img src="@item.ImageUrl" alt="@item.Title" />
+                        </a>
+                        <a href="/tin-tuc/@item.NewsCategory.CategoryUrl/@item.NewsUrl-@item.NewsId">
+                            <h3>
+                                @item.Title
+                            </h3>
+                        </a>
+                        <p class="mb-0 three-row">@item.Summary</p>
+                        <a href="/tin-tuc/@item.NewsCategory.CategoryUrl/@item.NewsUrl-@item.NewsId" class="d-block mt-2 text-right vdetail">
+                            <span>Chi tiết</span> <i class="fa fa-long-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    @if (pager != null && pager.TotalPage > 1)
+            {
+        @Html.Partial("~/Views/Shared/_Pager.cshtml", pager)
+    }
+</div>
+@Html.Partial("_Contact")

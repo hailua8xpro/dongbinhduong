@@ -1,0 +1,172 @@
+﻿@model IEnumerable<NamTanUyen.ViewModels.ProductItem>
+@{
+    var pager = ViewBag.Pager as NamTanUyen.ViewModels.PagerViewModel;
+    string url = Request.Url.AbsoluteUri;
+    string priceasc = Library.Helper.CommonHelper.GetUrlWithoutParamInput(url, new string[] { "pr", "a" });
+    priceasc = Library.Helper.CommonHelper.AddQueryStringToUrl(priceasc, "pr", "asc");
+    string pricedesc = Library.Helper.CommonHelper.GetUrlWithoutParamInput(url, new string[] { "pr", "a" });
+    pricedesc = Library.Helper.CommonHelper.AddQueryStringToUrl(pricedesc, "pr", "desc");
+    string adddesc = Library.Helper.CommonHelper.GetUrlWithoutParamInput(url, new string[] { "pr", "a" });
+    adddesc = Library.Helper.CommonHelper.AddQueryStringToUrl(adddesc, "a", "desc");
+    var cate = ViewBag.Cate as NamTanUyen.Models.ProductCategory;
+    var filters = ViewBag.Filters as IEnumerable<NamTanUyen.ViewModels.FilterItem>;
+}
+@section css{
+
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/font-awesome.css" rel="stylesheet" />
+        <link href="~/Content/global.css" rel="stylesheet" />
+        <link href="~/Content/reponsive.css" rel="stylesheet" />
+        <link href="~/Content/menu.dev.css" rel="stylesheet" />
+        <link href="~/Content/product.dev.css" rel="stylesheet" />
+        <link href="~/Content/productitem.css" rel="stylesheet" />*@
+        <link href="~/Content/product.min.css" rel="stylesheet" />
+
+
+}
+@section js{
+
+    <script src="~/Scripts/product.min.js"></script>
+}
+
+<div class="container-fluid">
+    <div class="row wr-po">
+        <div class="col-12 d-md-none">
+            <a href="javascript:" class="btnfilter">
+                Bộ lọc
+            </a>
+        </div>
+        <div class="col-md-2">
+            <div class="row no-gutters nav-filter">
+                <div class="col-12">
+                    @* @Html.Action("FilterProperty", "Common", new { filters = filters })*@
+                    <div class="d-md-none">
+                        <select class="selectfilter mb-3">
+                            <option value="">@ViewBag.SortText</option>
+                            <option value="@priceasc">Giá tăng dần</option>
+                            <option value="@pricedesc">Giá giảm dần</option>
+                            <option value="@adddesc">Mới nhất</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="breadcrumb pl-0">
+                <a href="/" title="Return to Home">Trang chủ &nbsp;</a>
+                <span class="fa fa-angle-right">&nbsp;</span>
+                <a href="/@cate.ProductObject.ProductObjectUrl" title="@cate.ProductObject.ProductObjectName">@cate.ProductObject.ProductObjectName &nbsp;</a>
+                <span class="fa fa-angle-right">&nbsp;</span>
+                <span class="navigation_page">
+                    @cate.ProductCategoryName
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="product-head clearfix">
+                <div class="float-left"><h1>@cate.ProductCategoryName</h1></div>
+                <div class="float-right d-none d-md-block">
+                    <div class="dropdown ddfilter d-inline-block ddfilter showonhover">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @ViewBag.SortText
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+
+                            <a class="dropdown-item" href="@priceasc">Giá tăng dần</a>
+                            <a class="dropdown-item" href="@pricedesc">Giá giảm dần</a>
+                            <a class="dropdown-item" href="@adddesc">Mới nhất</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row list-product">
+        @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    string href = "";
+                    if (item.ProductCategoryId != null && item.ProductGroupId > 0)
+                    {
+                        href = string.Format("/{0}/{1}/{2}/{3}/{4}", cate.ProductObject.ProductObjectUrl, cate.ProductCategoryNameUrl, item.ProductGroupUrl, item.ProductId, item.ProductNameUrl);
+                    }
+                    else if (item.ProductGroupId < 1)
+                    {
+                        href = string.Format("/{0}/{1}/{2}/{3}", cate.ProductObject.ProductObjectUrl, cate.ProductCategoryNameUrl, item.ProductId, item.ProductNameUrl);
+                    }
+                    else
+                    {
+                        href = string.Format("/{0}/{1}/{2}", cate.ProductObject.ProductObjectUrl, item.ProductId, item.ProductNameUrl);
+                    }
+                    <div class="col-md-4">
+                        <div class="productitem">
+
+                            <a href="@href">
+                                <img src="@item.ImageUrl" alt="@item.ProductName" />
+                            </a>
+                            @if (!string.IsNullOrEmpty(item.ListPropertyValue))
+                            {
+                                var mainprops = item.ListPropertyValue.Split('|');
+                                if (mainprops != null && mainprops.Length > 0)
+                                {
+                                    <div class="text-center">
+                                        <ul class="list-unstyled list-inline list-main-prop">
+                                            @foreach (var item2 in mainprops)
+                                            {
+                                                <li class="list-inline-item">
+                                                    @item2
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            }
+                            <p class="product-name"><a href="@href">@item.ProductName</a></p>
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item">Diện tích:<b> @item.Area m<sup>2</sup></b> (@item.Ratio)</li>
+                                @if (item.Area2 > 0)
+                                {
+                                <li class="list-inline-item">Thổ cư:<b> @item.Area2 m<sup>2</sup></b></li>
+                                }
+                            </ul>
+
+                            <div class="row item-bottom">
+                                <div class="col-6">
+                                    @if (item.Price > 0)
+                                    {
+                                        <p class="product-price"><span>@Library.Helper.CommonHelper.FormatCurrency(item.Price.Value).Replace(",00", string.Empty)</span></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="product-price">Giá: Liên Hệ</p>
+                                    }
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="@href" class="addtocart">Xem chi tiết</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            }
+        }
+    </div>
+    <div class="row">
+        <div class="col-12">
+            @if (pager != null && pager.TotalPage > 1)
+            {
+                @Html.Partial("~/Views/Shared/_Pager.cshtml", pager)
+            }
+        </div>
+    </div>
+
+</div>

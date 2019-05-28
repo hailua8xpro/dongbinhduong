@@ -1,0 +1,92 @@
+﻿
+.acc-wrap form textarea{
+    padding: 8px;
+    text-overflow: ellipsis;
+    background: #fff;
+    border: 1px solid #eee;
+    color: #888;
+    display:block;
+    min-width:260px;
+    margin-bottom:1em;
+}
+
+.acc-wrap form input[type=email],.acc-wrap form input[type=password],.acc-wrap form input[type=text]{
+   padding: 8px;
+    text-overflow: ellipsis;
+    height: 36px;
+    background: #fff;
+    border: 1px solid #eee;
+    color: #888;
+    display:block;
+    min-width:260px;
+    margin-bottom:1em;
+}
+.acc-wrap form input:focus,.acc-wrap form textarea:focus{
+    outline:none;
+}
+.forgotpass{
+    border-bottom:solid 1px #323438;
+    color:#6d6f71;
+}
+.forgotpass a{
+    color:#999;
+}
+.forgotpass a:hover{
+}
+.acc-wrap form label{
+}
+.cpsuccess{
+    display:none;
+}
+.w-myaccount{
+}
+.w-myaccount ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.w-myaccount ul li{
+    padding:6px 0;
+}
+.w-myaccount ul li a{
+    color:#323438;
+}
+.w-myaccount h3{
+    font-size:1.5em;
+}
+#frmuserinfo .row:first-of-type,#frm-changepass .row:first-of-type{
+    margin-top:0;
+}
+#frmuserinfo .row,#frm-changepass .row{
+    margin:15px 0;
+}
+#frmuserinfo input,#frm-changepass input,#frmorderlogin input[type=email],#frmorderlogin input[type=password],#frm-searchorder input[type=text],#frm-searchorder input[type=email]{
+    min-width:300px;
+    text-indent:5px;
+}
+#frm-changepass input,#frmuserinfo input,#frmuserinfo select,#frmorderlogin input[type=email],#frmorderlogin input[type=password],#frm-searchorder input[type=text],#frm-searchorder input[type=email]{
+    height:36px;
+    border:solid 1px #ddd;
+}
+#frmuserinfo textarea{
+    border:solid 1px #ddd;
+    min-width:300px;
+}
+#frmuserinfo button,#frm-changepass button,#frmorderlogin button,#frm-searchorder button {
+    width: 300px;
+    border: solid 1px #fff;
+    color: #fff;
+    background-color:#e67726;
+    margin: 30px 0;
+    height: 47px;
+    cursor: pointer;
+    border-radius: 0;
+}
+@media (max-width: 768px) {
+    .acc-wrap{
+        padding: 0 10px;
+    }
+    #frmuserinfo textarea{
+    width:100%;
+}
+}

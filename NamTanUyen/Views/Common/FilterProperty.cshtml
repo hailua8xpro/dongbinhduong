@@ -1,0 +1,123 @@
+﻿@model IEnumerable<NamTanUyen.ViewModels.FilterItem>
+    @{ 
+        var selectedprop = ViewBag.SelectedProp as IEnumerable<int>;
+    }
+    @if (Model != null && Model.Any())
+    {
+        var templist1=Model.GroupBy(x=>x.PropertyId)
+                          .Select(g => g.First())
+                          .ToList();
+        <div class="mb-2 property-filter">
+                @foreach (var item in templist1)
+                {
+                    <p>@item.PropertyNameDisplay</p>
+                    var templist2 = Model.Where(x => x.PropertyId == item.PropertyId);
+                    <ul>
+                        @foreach (var item1 in templist2)
+                        {
+                            var url = "";
+                            List<int> templist = new List<int>();
+                            if (selectedprop != null)
+                            {
+                                templist.AddRange(selectedprop);
+                            }
+                            if (selectedprop != null && selectedprop.Contains(item1.PropertyDetailId))
+                            {
+                                templist.Remove(item1.PropertyDetailId);
+                                if (templist.Count == 0)
+                                {
+                                    url = Library.Helper.CommonHelper.GetUrlWithoutParamInput(ViewBag.Url, "prop");
+                                }
+                                else
+                                {
+                                    url = Library.Helper.CommonHelper.AddQueryStringToUrl(ViewBag.Url, "prop", string.Join(",", templist));
+                                    url = url.Replace("%2c", ",");
+                                }
+                                <li><a href="@url"><i class="fa fa-check-square-o"></i> @item1.PropertyValue (@item1.TotalProduct)</a></li>
+                            }
+                            else if (selectedprop != null)
+                            {
+                                templist.Add(item1.PropertyDetailId);
+                                url = Library.Helper.CommonHelper.AddQueryStringToUrl(ViewBag.Url, "prop", string.Join(",", templist));
+                                url = url.Replace("%2c", ",");
+                                <li><a href="@url"><i class="fa fa-square-o"></i> @item1.PropertyValue (@item1.TotalProduct)</a></li>
+                            }
+                            else
+                            {
+                                url = Library.Helper.CommonHelper.AddQueryStringToUrl(ViewBag.Url, "prop", item1.PropertyDetailId.ToString());
+                                <li><a href="@url"><i class="fa fa-square-o"></i> @item1.PropertyValue (@item1.TotalProduct)</a></li>
+
+                            }
+                        }
+                        </ul>
+
+                    
+                        }
+        </div>
+        @*<div class="d-md-none">
+            @foreach (var item in Model)
+            {
+                var propdetail = item.PropertyDetail.Where(x => x.IsActive == true);
+                <select class="selectfilter">
+                    @{
+                        List<int> templist1 = new List<int>();
+                        string url1 = "";
+                        if (selectedprop != null)
+                        {
+                            templist1.AddRange(selectedprop);
+                            var selects = propdetail.Where(x => templist1.Contains(x.PropertyDetailId)).Select(y=>y.PropertyDetailId);
+                            templist1.RemoveAll(x => selects.Contains(x));
+                            if (templist1.Count == 0)
+                            {
+                                url1 = Library.Helper.CommonHelper.GetUrlWithoutParamInput(ViewBag.Url, "prop");
+                            }
+                            else
+                            {
+                                url1 = Library.Helper.CommonHelper.AddQueryStringToUrl(ViewBag.Url, "prop", string.Join(",", templist1));
+                                url1 = url1.Replace("%2c", ",");
+                            }
+                        }
+                    }
+                    <option value="@url1">@item.PropertyNameDisplay</option>
+                    @if (propdetail != null && propdetail.Any())
+                    {
+                        foreach (var item1 in propdetail)
+                        {
+                            var url = "";
+                            List<int> templist = new List<int>();
+                            if (selectedprop != null)
+                            {
+                                templist.AddRange(selectedprop);
+                            }
+                            if (selectedprop != null && selectedprop.Contains(item1.PropertyDetailId))
+                            {
+                                templist.Remove(item1.PropertyDetailId);
+                                if (templist.Count == 0)
+                                {
+                                    url = Library.Helper.CommonHelper.GetUrlWithoutParamInput(ViewBag.Url, "prop");
+                                }
+                                else
+                                {
+                                    url = Library.Helper.CommonHelper.AddQueryStringToUrl(ViewBag.Url, "prop", string.Join(",", templist));
+                                    url = url.Replace("%2c", ",");
+                                }
+                                <option selected value="@url">@item1.PropertyValue</option>
+                            }
+                            else if (selectedprop != null)
+                            {
+                                templist.Add(item1.PropertyDetailId);
+                                url = Library.Helper.CommonHelper.AddQueryStringToUrl(ViewBag.Url, "prop", string.Join(",", templist));
+                                url = url.Replace("%2c", ",");
+                                <option value="@url">@item1.PropertyValue</option>
+                            }
+                            else
+                            {
+                                url = Library.Helper.CommonHelper.AddQueryStringToUrl(ViewBag.Url, "prop", item1.PropertyDetailId.ToString());
+                                <option value="@url">@item1.PropertyValue</option>
+                            }
+                        }
+                    }
+                </select>
+                        }
+        </div>*@
+    }

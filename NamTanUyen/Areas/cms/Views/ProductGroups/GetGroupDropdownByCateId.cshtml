@@ -1,0 +1,13 @@
+﻿@model IEnumerable<NamTanUyen.Models.ProductGroup>
+    <select class="form-control" name="ProductGroupId" id="ProductGroupId">
+        <option value="0">Chọn nhóm sản phẩm</option>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <option value="@item.ProductGroupId">@item.ProductGroupName</option>
+            }
+        }
+        
+    </select>
+

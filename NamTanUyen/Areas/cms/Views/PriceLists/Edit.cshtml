@@ -1,0 +1,109 @@
+﻿@model NamTanUyen.Models.PriceList
+
+@{
+    ViewBag.Title = "Bảng giá";
+}
+
+<h2>Chỉnh sửa</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Bảng giá</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PriceListId)
+        @Html.HiddenFor(model => model.CreatedDate)
+        @Html.HiddenFor(model => model.CreatedUserId)
+        @Html.HiddenFor(model => model.FileUrl)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BrandId, "Thương hiệu", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("BrandId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Metakeywords, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Metakeywords, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Metakeywords, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MetaDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MetaDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MetaDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="PdfFile" class="control-label col-md-2">UploadFile</label>
+            <div class="col-md-10">
+                <input type="file" name="PdfFile" class="form-control" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="control-label col-md-2">Bảng giá</label>
+            <div class="col-md-10">
+                <object id="objpricelistfile" style="width:100%;margin-bottom:2em" height="500" data="@Model.FileUrl"></object>
+            </div>
+        </div>
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActive)
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Danh sách", "Index")
+</div>
+@section js{
+    <script src="~/Content/lib/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/lib/ckfinder/ckfinder.js"></script>
+    <script>
+        var editor = CKEDITOR.replace('Content');
+        editor.setData($('#Content').val())
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var url = $('form').attr('action');
+            var value = CKEDITOR.instances['Content'].getData();
+            $('#Content').val(value);
+            var data = new FormData(this);
+            updateModelWithImage(url, data);
+        })
+    </script>
+}

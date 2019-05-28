@@ -1,0 +1,62 @@
+﻿@model NamTanUyen.ViewModels.PagerViewModel
+@if (Model != null)
+{
+    bool ishasparametter = Library.Helper.CommonHelper.CheckUrlHasQueryString(Model.Url);
+    string url = "";
+        <ul class="pagination pagination-lg d-inline-flex">
+            @if (Model.PageIndex == 1)
+                {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                url = ishasparametter ? Model.Url + "&page=" + (Model.PageIndex - 1) : Model.Url + "?page=" + (Model.PageIndex - 1);
+                <li class="page-item">
+                    <a class="page-link" href="@url">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.TotalPage; i++)
+            {
+                if (Model.PageIndex == i)
+                {
+                    <li class="page-item hidden-sm-down active">
+                        <a class="page-link" href="#">@i <span class="sr-only">(current)</span></a>
+                    </li>
+                }
+                else
+                {
+                    url = ishasparametter ? Model.Url + "&page=" + i : Model.Url + "?page=" + i;
+                    <li class="page-item hidden-sm-down">
+                        <a class="page-link" href="@url">@i</a>
+                    </li>
+                }
+            }
+            @if (Model.PageIndex == Model.TotalPage)
+                {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                url = ishasparametter ? Model.Url + "&page=" + (Model.PageIndex + 1) : Model.Url + "?page=" + (Model.PageIndex + 1);
+                <li class="page-item">
+                    <a class="page-link" href="@url">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            }
+        </ul>
+}

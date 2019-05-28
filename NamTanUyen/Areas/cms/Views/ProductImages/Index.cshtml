@@ -1,0 +1,36 @@
+﻿@model IEnumerable<NamTanUyen.Models.ProductImage>
+
+@{
+    ViewBag.Title = "Bộ sưu tập hình ảnh sản phẩm";
+}
+
+<h2>Bộ sưu tập hình ảnh sản phẩm</h2>
+<p>
+    @Html.ActionLink("Thêm mới", "Create", new { productId = ViewBag.ProductId })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.ProductName)
+        </td>
+        <td>
+            <img src="@item.ImageUrl" width="100" alt="" />
+        </td>
+        <td>
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ProductImageId })
+        </td>
+    </tr>
+}
+
+</table>

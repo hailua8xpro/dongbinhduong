@@ -1,0 +1,74 @@
+﻿@model NamTanUyen.Models.User  
+@section css{
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+    <link href="~/Content/reponsive.css" rel="stylesheet" />
+    <link href="~/Content/menu.dev.css" rel="stylesheet" />
+    <link href="~/Content/order.dev.css" rel="stylesheet" />
+}
+@section js{
+    <script src="~/Scripts/jquery-2.0.0.js"></script>
+   <script src="~/Areas/cms/Content/cms_theme/vendor/popper/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script src="~/Scripts/global.js"></script>
+    <script src="~/Scripts/order.dev.js"></script>
+}
+<div class="container-fluid">
+    <div class="breadcrumb pl-0">
+        <a class="green" href="/" title="Return to Home">Trang chủ &nbsp;</a>
+        <span class="fa fa-angle-right">&nbsp;</span>
+
+        <span class="navigation_page">
+            Đặt hàng
+        </span>
+    </div>
+  
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 ordersucess" style="display:none">
+            <p> Đơn hàng của quý khách <strong id="ordercode"></strong> thành công. Nhân viên shop sẽ liên hệ với quý khách sau 60 phút nữa. Cảm ơn qúy khách. <a class="green" href="/">Về trang chủ</a></p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 wr-order">
+            <form id="order-form" method="post" enctype="multipart/form-data">
+                <div class="row form-group">
+                    <label for="CustomerName" class="col-sm-2 col-form-label">Họ tên</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required id="FullName" name="FullName" placeholder="Họ tên" value="@(Model!=null?Model.FullName:string.Empty)">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="Phone" class="col-sm-2 col-form-label">Điện thoại</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Phone" name="Phone" value="@(Model!=null?Model.Phone:string.Empty)" placeholder="Điện thoại" required>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="Email" class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" required id="Email" value="@(Model!=null?Model.Email:string.Empty)" name="Email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="ShipAddress" class="col-sm-2 col-form-label">Địa chỉ</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="ShipAddress" required name="ShipAddress" placeholder="Địa chỉ">@(Model!=null?Model.Address:string.Empty)
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="OrderNote" class="col-sm-2 col-form-label">Ghi chú</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="OrderNote" name="OrderNote" placeholder="Ghi chú"></textarea>
+                    </div>
+                </div>
+                <div class="text-center mb-4"><Button class="button">Đặt hàng</Button></div>
+            </form>
+
+        </div>
+    </div>
+</div>

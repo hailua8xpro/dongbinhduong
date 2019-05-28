@@ -1,0 +1,60 @@
+﻿@model IEnumerable<NamTanUyen.Models.OrderDetail>
+    @if (Model!=null && Model.Any())
+    {
+        var firstitem = Model.FirstOrDefault();
+        <h1>Thông tin đơn hàng </h1>
+        <p>Khách hàng: @firstitem.Order.FullName</p>
+        <p>Điện thoại: @firstitem.Order.Phone</p>
+        <p>Địa chỉ: @firstitem.Order.ShipAddress</p>
+        <p>Ghi chú đơn hàng: @firstitem.Order.OrderNote</p>
+        <br />
+        <table class="table">
+            <tr>
+
+                <th>
+                    Sản phẩm
+                </th>
+                <th>
+                   Số lượng
+                </th>
+                <th>Giá</th>
+                <th>Thành tiền</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                            <img src="@item.Product.ImageUrl" style="width:120px;" />
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Product.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                       
+                            @Library.Helper.CommonHelper.FormatCurrency(item.Price.Value).Replace(",00", string.Empty)
+                       
+                    </td>
+                    <td>
+                            @Library.Helper.CommonHelper.FormatCurrency(item.Price.Value * item.Quantity).Replace(",00", string.Empty)
+                    </td>
+                </tr>
+            }
+            @if(Model!=null && Model.Any())
+            {
+                <tr>
+                    <td colspan="5">
+                        <strong class="text-danger">
+                            Tổng tiền:
+
+                            @Library.Helper.CommonHelper.FormatCurrency(Model.Sum(x => x.Quantity *x.Price.Value)).Replace(",00", string.Empty)
+                        </strong>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }

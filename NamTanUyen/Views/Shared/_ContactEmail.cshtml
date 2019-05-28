@@ -1,0 +1,10 @@
+﻿@model NamTanUyen.Models.Contact
+    @if (Model!=null)
+    {
+        <h1>Liên hệ từ khách hàng:</h1>
+        <p><strong>Khách hàng:</strong> @Model.FullName</p>
+        <p><strong>Nội dung:</strong></p>
+        <p>@Model.Comment</p>
+        <p><strong>Số điện thoại:</strong></p>
+        <p>@Model.Phone</p>
+    }

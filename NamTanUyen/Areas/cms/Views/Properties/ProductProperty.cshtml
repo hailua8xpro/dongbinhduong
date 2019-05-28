@@ -1,0 +1,77 @@
+﻿@model IEnumerable<NamTanUyen.Models.Property>
+@{
+    ViewBag.Title = "ProductProperty";
+    IEnumerable<int> ListpropertyId = ViewBag.ListpropertyId as IEnumerable<int>;
+}
+
+<h2>Thuộc tính sản phẩm</h2>
+<hr />
+@if (Model!=null && Model.Any())
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-3">
+            <p class="font-weight-bold">@item.PropertyName</p>
+            @if (item.PropertyDetail != null && item.PropertyDetail.Any())
+            {
+                var propdetails = item.PropertyDetail.Where(x => x.IsActive == true);
+                if (propdetails != null && propdetails.Any())
+                {
+                    <ul class="list-unstyled">
+                        @foreach (var item1 in propdetails)
+                        {
+                            <li>
+                                <label><input type="checkbox" class="cbProp" name="cbProp" @(ListpropertyId!=null && ListpropertyId.Contains(item1.PropertyDetailId)?"checked":string.Empty) value="@item1.PropertyDetailId" /> @item1.PropertyValue</label>
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+        </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a href="javascript:" id="btnUpdateProductProperty" class="btn btn-primary">Cập nhật</a>
+        </div>
+    </div>
+    
+}
+@section js{
+    <script>
+        var productid = '@ViewBag.ProductId';
+        $('#btnUpdateProductProperty').click(function () {
+            var checklist = $('.cbProp:checked');
+            var arr = [];
+            if (checklist.length>0) {
+                $(checklist).each(function () {
+                    var propdetailid = $(this).val();
+                    if (propdetailid>0) {
+                        arr.push(propdetailid);
+                    }
+                })
+            }
+            $.ajax({
+                type:'POST',
+                data: { productId: productid, lstPropDetailid: arr },
+                url: '/cms/Properties/UpdateProductProperty',
+                beforeSend: function () {
+                    showLoading();
+                },
+                success: function (e) {
+                    hideLoading();
+                    if (e._result>0) {
+                        alert('Cập nhật thành công');
+                        location.reload();
+                    }
+                    else {
+                        alert('Cập nhật thất bại, vui lòng thử lại');
+                        console.log(e._error);
+                    }
+                }
+            })
+        })
+    </script>
+    }
+

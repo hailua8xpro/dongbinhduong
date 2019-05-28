@@ -1,0 +1,129 @@
+﻿@model IEnumerable<NamTanUyen.Models.CommonInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Skype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zalo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FaceBook)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MetaDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MetaKeywords)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FacebookImageUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailFrom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PassWord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedUserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Skype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zalo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FaceBook)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MetaDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MetaKeywords)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FacebookImageUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailFrom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailTo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PassWord)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedUserId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CommonInfoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CommonInfoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CommonInfoID })
+        </td>
+    </tr>
+}
+
+</table>

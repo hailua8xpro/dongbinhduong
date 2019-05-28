@@ -1,0 +1,18 @@
+﻿.w-staticpage ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.w-staticpage ul li{
+    padding:6px 0;
+}
+.w-staticpage ul li a{
+    color:#323438;
+}
+.w-staticpage ul li.active a{
+    color:#000;
+    border-bottom:solid 1px #000;
+}
+img{
+    max-width:100%;
+}

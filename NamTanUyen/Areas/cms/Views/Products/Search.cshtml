@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NamTanUyen.Models.Product>
+
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+}
+
+<h2>@ViewBag.MetaModel.Title</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand.BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand.BrandName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <img src="@item.ImageUrl" width="100" alt="" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>@Html.ActionLink("Hình ảnh", "Index", "ProductImages", new { productId = item.ProductId }, null)</td>
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.ProductId }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.ProductId })
+            </td>
+        </tr>
+    }
+
+</table>
+@{
+    var pager = ViewBag.Pager as NamTanUyen.ViewModels.PagerViewModel;
+}
+@if (pager != null && pager.TotalPage > 1)
+{
+    @Html.Partial("~/Views/Shared/_Pager.cshtml", pager)
+}

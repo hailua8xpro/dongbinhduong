@@ -1,0 +1,124 @@
+﻿@model Mango.Models.Order
+@section css{
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+    <link href="~/Content/reponsive.css" rel="stylesheet" />
+    <link href="~/Content/menu.dev.css" rel="stylesheet" />
+    <link href="~/Content/account.dev.css" rel="stylesheet" />
+
+}
+@section js{
+
+    <script src="~/Scripts/jquery-2.0.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script src="~/Scripts/global.js"></script>
+    <script src="~/Scripts/order.dev.js"></script>
+}
+<div class="container-fluid">
+    <div class="breadcrumb pl-0">
+        <a class="green" href="/" title="Return to Home">Trang chủ &nbsp;</a>
+
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <span class="navigation_page">
+            Chi tiết đơn hàng
+        </span>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <p>Mã đơn hàng: <strong>@Model.OrderCode</strong></p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p>Ngày đặt hàng: <strong>@String.Format("{0:dd/MM/yyyy}", Model.CreatedDate)</strong></p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p>Tên khách hàng: <strong>@Model.FullName</strong></p>
+                </div>
+                <div class="col-12 col-md-6">
+                    <p>Điện thoại: <strong>@Model.Phone</strong></p>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.Email))
+                {
+                    <div class="col-12 col-md-6">
+                        <p>Email: <strong>@Model.Email</strong></p>
+                    </div>
+                }
+
+                <div class="col-12 col-md-6">
+                    <p>Địa chỉ: <strong>@Model.ShipAddress</strong></p>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.OrderNote))
+                {
+                    <div class="col-12 col-md-6">
+                        <p>Ghi chú: <strong>@Model.OrderNote</strong></p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    @if (Model.OrderDetail != null)
+    {
+        <div class="table-responsive">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderDetail)
+                    {
+
+                        <tr>
+                            <td>
+                                <img src="@item.Product.ImageUrl" width="100" class="float-left mr-2" alt="" />
+                                <div class="float-left">
+                                    @if (item.Product.ProductGroup != null)
+                                    {
+                                        <p><a href="/@item.Product.ProductObject.ProductObjectNameUrl/@item.Product.ProductCategory.ProductCategoryNameUrl/@item.Product.ProductGroup.ProductGroupNameUrl/@item.Product.ProductID/@item.Product.ProductNameUrl">@item.ProductName </a></p>
+                                        
+                                    }
+                                    else
+                                    {
+                                        <p><a href="/@item.Product.ProductObject.ProductObjectNameUrl/@item.Product.ProductCategory.ProductCategoryNameUrl/@item.Product.ProductID/@item.Product.ProductNameUrl">@item.ProductName</a></p>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.ColorName))
+                                    {
+                                        <p>
+                                            Màu: @item.ColorName
+                                        </p>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.SizeName))
+                                    {
+                                        <p>
+                                            Size: @item.SizeName
+                                        </p>
+                                    }
+                                </div>
+
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td>@Library.Helper.CommonHelper.FormatCurrency(item.Price.Value).Replace(",00", string.Empty)</td>
+                            <td>@Library.Helper.CommonHelper.FormatCurrency(item.Price.Value * item.Quantity).Replace(",00", string.Empty)</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Tổng tiền: <strong>@Library.Helper.CommonHelper.FormatCurrency(Model.TotalAmount.Value).Replace(",00", string.Empty)</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    }
+</div>

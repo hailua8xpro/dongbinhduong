@@ -1,0 +1,159 @@
+﻿@{
+    var banners = ViewBag.Banners as List<NamTanUyen.Models.Banner>;
+    var news = ViewBag.News as IEnumerable<NamTanUyen.Models.News>;
+    var projectimages = ViewBag.ProjectImages as IEnumerable<NamTanUyen.Models.ProjectImage>;
+    var projectvideos = ViewBag.ProjectVideos as IEnumerable<NamTanUyen.Models.ProjectImage>;
+}
+@section css{
+
+    <link href="~/Content/home.min.css" rel="stylesheet" />
+
+}
+@section js{
+
+    <script src="~/Scripts/home.min.js"></script>
+}
+
+@if (banners != null && banners.Any())
+{
+    <div class="banner">
+        <div class="owl-carousel owl-homebanner owl-theme">
+            @foreach (var item in banners)
+            {
+                <div class="item"><a href="@item.Url"><img src="@item.ImageUrl" /></a></div>
+            }
+            <div class="item">
+                <div class="map-responsive"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1347.8948024153367!2d106.76837759145259!3d10.940743225539576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDU2JzI2LjciTiAxMDbCsDQ2JzA5LjUiRQ!5e1!3m2!1svi!2s!4v1553066083045" frameborder="0" style="border:0;width:100%" allowfullscreen></iframe></div>
+            </div>
+        </div>
+    </div>
+}
+<div class="container my-4">
+    <div class="row benefit">
+        <div class="col-sm-4 mb-3">
+            <div class="benefit-item">
+                <img src="~/Content/images/village.png" alt="quy mô dự án cực lớn">
+                <strong class="text-uppercase">quy mô dự án cực lớn</strong>
+                <p>Với tổng diện tích lên tới 126 ha ~ 6090 nền, KĐT Đông Bình Dương là siêu dự án có quy mô lớn nhất tỉnh Bình Dương</p>
+            </div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <div class="benefit-item">
+                <img src="~/Content/images/location.png" alt="vị trí đắc địa">
+                <strong class="text-uppercase">vị trí đắc địa</strong>
+                <p>Thuộc địa phận Tx Dĩ An, với vị trí giáp ranh 3 tỉnh Bình Dương - Đồng Nai - Tp Hồ Chí Minh, KĐT Đông Bình Dương hứa hẹn là địa điểm lý tưởng để an cư lập nghiệp</p>
+            </div>
+        </div>
+        <div class="col-sm-4 mb-3">
+            <div class="benefit-item">
+                <img src="~/Content/images/gold-ingot.png" alt="giá cả siêu cạnh tranh">
+                <strong class="text-uppercase">giá cả siêu cạnh tranh</strong>
+                <p>Giá cả chính là lợi thế cạnh tranh tuyệt đối của dự án KĐT Đông Bình Dương, mặc dù sở hữu lợi thế về quy mô dự án - vị trí đắc địa nhưng dự án lại có một mức giá chỉ từ 8 triệu / m2</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="box my-3">
+        <div class="box-title clearfix">
+            <a class="float-left box-title-name" href="/ban-tin-du-an"><h3><i class="fa fa-circle"></i> Bản Tin Dự Án</h3></a>
+            <div class="float-right">
+                <div id="hotNewsNav" class="owl-nav ntunav"></div>
+            </div>
+        </div>
+        <div class="owl-carousel owl-hotnews owl-theme">
+            @if (news != null && news.Any())
+            {
+                foreach (var item in news)
+                {
+                    <div class="item">
+                        <div class="news-item">
+                            <a href="/tin-tuc/@item.NewsCategory.CategoryUrl/@item.NewsUrl-@item.NewsId">
+                                <img src="@item.ImageUrl" alt="@item.Title" />
+                            </a>
+                            <a href="/tin-tuc/@item.NewsCategory.CategoryUrl/@item.NewsUrl-@item.NewsId">
+                                <h3 class="two-row">@item.Title</h3>
+                            </a>
+                            <p class="two-row">@item.Summary</p>
+                            <a href="/tin-tuc/@item.NewsCategory.CategoryUrl/@item.NewsUrl-@item.NewsId" class="d-block mt-2 text-right vdetail">
+                                <span>Chi tiết</span> <i class="fa fa-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+
+    </div>
+
+    <div class="box my-3">
+        <div class="box-title clearfix">
+            <a class="float-left box-title-name" href="/ban-tin-du-an"><h3><i class="fa fa-circle"></i> Hình Ảnh Dự Án</h3></a>
+            <div class="float-right">
+                <div id="projectImageNav" class="owl-nav ntunav"></div>
+            </div>
+        </div>
+        <div class="owl-carousel owl-projectImage owl-theme">
+            @if (projectimages != null && projectimages.Any())
+            {
+                foreach (var item in projectimages)
+                {
+                    <div class="item">
+                        <div class="projectimage-item">
+                            <a data-fancybox="gallery" data-caption="@item.Caption" href="@item.ImageUrl" class="@(!string.IsNullOrEmpty(item.Caption)?"item-image":string.Empty)">
+                                <img height="170" src="@item.ImageUrl" alt="@item.Caption" />
+                                @if (!string.IsNullOrEmpty(item.Caption))
+                                {
+                                    <div class="item-content">
+                                        <p class="two-row">@item.Caption</p>
+                                    </div>
+                                }
+                            </a>
+
+
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+
+    </div>
+
+    <div class="box my-3">
+        <div class="box-title clearfix">
+            <a class="float-left box-title-name" href="/ban-tin-du-an"><h3><i class="fa fa-circle"></i> Video Dự Án</h3></a>
+            <div class="float-right">
+                <div id="projectVideoNav" class="owl-nav ntunav"></div>
+            </div>
+        </div>
+        <div class="owl-carousel owl-projectVideo owl-theme">
+            @if (projectvideos != null && projectvideos.Any())
+            {
+                foreach (var item in projectvideos)
+                {
+                    <div class="item">
+                        <div class="projectimage-item videoitem">
+                            <a data-fancybox="gallery" data-caption="@item.Caption" href="@item.VideoUrl" class="@(!string.IsNullOrEmpty(item.Caption)?"item-image":string.Empty)">
+                                <i class="fa fa-4x fa-youtube-play"></i>
+                                <img src="@item.ImageUrl" alt="@item.Caption" />
+                                @if (!string.IsNullOrEmpty(item.Caption))
+                                {
+                                    <div class="item-content">
+                                        <p class="two-row">@item.Caption</p>
+                                    </div>
+                                }
+                            </a>
+
+
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+
+    </div>
+</div>
+@Html.Partial("_Contact")

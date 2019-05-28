@@ -1,0 +1,149 @@
+﻿@model List<NamTanUyen.ViewModels.CartItemViewModel>
+@section css{
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+    <link href="~/Content/reponsive.css" rel="stylesheet" />
+    <link href="~/Content/menu.dev.css" rel="stylesheet" />
+    <link href="~/Content/order.dev.css" rel="stylesheet" />
+}
+@section js{
+
+    <script src="~/Scripts/jquery-2.0.0.js"></script>
+    <script src="~/Areas/cms/Content/cms_theme/vendor/popper/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/common.js"></script>
+    <script src="~/Scripts/global.js"></script>
+    <script src="~/Scripts/order.dev.js"></script>
+}
+<div class="container-fluid">
+    <div class="breadcrumb pl-0">
+        <a class="green" href="/" title="Return to Home">Trang chủ &nbsp;</a>
+        <span class="fa fa-angle-right">&nbsp;</span>
+
+        <span class="navigation_page">
+            Giỏ hàng
+        </span>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        <div id="wrcart">
+            <div class="row">
+                <div class="col-12">
+                    <div class="float-left">
+                        <h1 class="h4">Có @Model.Count sản phẩm trong giỏ hàng</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="col-12">
+                    <div class="whitebg px-3 py-0 mb-3 border">
+                        <div class="row">
+                            <div class="col-md-8 py-2 br">
+                                @foreach (var item in Model)
+                                {
+                                    string href = "";
+                                    if (item.ProductItem.ProductCategory != null && item.ProductItem.ProductGroup != null)
+                                    {
+                                        href = string.Format("/{0}/{1}/{2}/{3}/{4}", item.ProductItem.ProductObject.ProductObjectUrl, item.ProductItem.ProductCategory.ProductCategoryNameUrl, item.ProductItem.ProductGroup.ProductGroupUrl, item.ProductItem.ProductId, item.ProductItem.ProductNameUrl);
+                                    }
+                                    else if (item.ProductItem.ProductGroup == null)
+                                    {
+                                        href = string.Format("/{0}/{1}/{2}/{3}", item.ProductItem.ProductObject.ProductObjectUrl, item.ProductItem.ProductCategory.ProductCategoryNameUrl, item.ProductItem.ProductId, item.ProductItem.ProductNameUrl);
+                                    }
+                                    else
+                                    {
+                                        href = string.Format("/{0}/{1}/{2}", item.ProductItem.ProductObject.ProductObjectUrl, item.ProductItem.ProductId, item.ProductItem.ProductNameUrl);
+                                    }
+                                    <div class="row cartitem mb-2 py-2" data-id="@item.ProductItem.ProductId">
+                                        <div class="col-3 pr-0">
+                                            <a href="@href">
+                                                <img src="@item.ProductItem.ImageUrl" alt="@item.ProductItem.ProductName" />
+                                            </a>
+                                        </div>
+                                        <div class="col-9">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <a href="@href" class="text-gray-dark">@item.ProductItem.ProductName</a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row">
+                                                        <div class="col-md-7"><span>Số lượng:</span> <input class="rounded cart-q border" type="number" value="@item.Quantity" /></div>
+                                                        <div class="col-md-5">
+                                                            <strong>
+                                                                @if (item.ProductItem.SalePrice.HasValue && item.ProductItem.SalePrice > 0)
+                                                                {
+                                                                    @Library.Helper.CommonHelper.FormatCurrency(item.ProductItem.SalePrice.Value * item.Quantity).Replace(",00", string.Empty)
+                                                                }
+                                                                else if (item.ProductItem.Price.HasValue && item.ProductItem.Price > 0)
+                                                                {
+                                                                    @Library.Helper.CommonHelper.FormatCurrency(item.ProductItem.Price.Value * item.Quantity).Replace(",00", string.Empty)
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:<text>Liên hệ</text>
+                                        }
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p><a class="green" href="javascript:" onclick="removeFromCart(@item.ProductItem.ProductId)">Xóa</a></p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                            <div class="col-md-4 py-3">
+                                <div class="pb-1 mb-3 bb">
+                                    <p><strong>Thông tin đơn hàng</strong></p>
+                                    <p>Số lượng sản phẩm: <strong>@Model.Count</strong></p>
+                                    <p>
+                                        Thành tiền: <strong>
+                                            @if (ViewBag.TotalMoney > 0)
+                                            {
+                                                @:<text>@Library.Helper.CommonHelper.FormatCurrency(ViewBag.TotalMoney).Replace(",00", string.Empty)</text>
+	                                    }
+                                            else
+                                            {
+                                                @:<text>Liên hệ </text>
+                                        }
+                                        </strong>
+                                    </p>
+                                </div>
+                                <p>
+                                    Tổng tiền: <strong>
+                                        @if (ViewBag.TotalMoney > 0)
+                                        {
+                                            @:<text>@Library.Helper.CommonHelper.FormatCurrency(ViewBag.TotalMoney).Replace(",00", string.Empty)</text>
+	                                    }
+                                        else
+                                        {
+                                            @:<text>Liên hệ </text>
+                                        }
+                                    </strong>
+                                </p>
+                                <a href="/dat-hang" class="button d-block">Đặt hàng</a>
+                                <a href="/" class="buymore">Tiếp tục mua hàng <i class="fa fa-angle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row cartempty" style="display:none;">
+            <div class="col-12"><p>Giỏ hàng rỗng,<a href="/" class="green"> Về trang chủ</a></p></div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12"><p>Giỏ hàng rỗng,<a href="/" class="green"> Về trang chủ</a></p></div>
+        </div>
+    }
+</div>

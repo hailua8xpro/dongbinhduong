@@ -1,0 +1,91 @@
+﻿@model IEnumerable<NamTanUyen.Models.Product>
+    @{ 
+        var pager = ViewBag.Pager as NamTanUyen.ViewModels.PagerViewModel;
+    }
+@section css{
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+    <link href="~/Content/reponsive.css" rel="stylesheet" />
+    <link href="~/Content/menu.dev.css" rel="stylesheet" />
+    <link href="~/Content/product.dev.css" rel="stylesheet" />
+    <link href="~/Content/productitem.css" rel="stylesheet" />
+}
+@section js{
+
+    <script src="~/Scripts/jquery-2.0.0.js"></script>
+    <script src="~/Content/jqueryplugin/owlcarousel2/owl.carousel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/global.js"></script>
+}
+<div class="container-fluid w-myaccount">
+    <div class="breadcrumb pl-0">
+        <a class="green" href="/" title="Return to Home">Trang chủ &nbsp;</a>
+
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <span class="navigation_page">
+            Yêu thích
+        </span>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Tài khoản</h3>
+            <ul>
+                <li><a href="/doi-mat-khau">Đổi mật khẩu</a></li>
+                <li><a href="/wishlist">Yêu thích</a></li>
+                <li><a href="/don-hang"  style="color:#000">Đơn hàng</a></li>
+                <li><a href="/tai-khoan">Thông tin</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            @if (Model != null && Model.Any())
+            {
+                <div class="row list-product">
+                    @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                            <div class="col-md-3">
+                                <div class="productitem">
+                                    <a href="/@item.ProductObject.ProductObjectUrl/@item.ProductGroup.ProductGroupUrl/@item.ProductId/@item.ProductNameUrl">
+                                        <img src="@item.ImageUrl" alt="@item.ProductName" />
+                                    </a>
+                                    <p class="product-name"><a href="/@item.ProductObject.ProductObjectUrl/@item.ProductGroup.ProductGroupUrl/@item.ProductId/@item.ProductNameUrl">@item.ProductName</a></p>
+                                    @if (item.SalePrice > 0 && item.Price > item.SalePrice && item.IsHasPromotion == true)
+                                    {
+                                        var discountcp = Library.Helper.CommonHelper.CalculateDiscountPercent(item.Price.Value, item.SalePrice.Value);
+                                        <p class="product-price"><span>@Library.Helper.CommonHelper.FormatCurrency(item.SalePrice.Value).Replace(",00", string.Empty)</span></p>
+                                        <p class="product-price"><del>@Library.Helper.CommonHelper.FormatCurrency(item.Price.Value).Replace(",00", string.Empty)</del> <span class="lbldc">-@discountcp%</span></p>
+                                    }
+                                    else
+                                    {
+                                        <p class="product-price">@Library.Helper.CommonHelper.FormatCurrency(item.Price.Value).Replace(",00", string.Empty)</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        @if (pager != null && pager.TotalPage > 1)
+                        {
+                            @Html.Partial("~/Views/Shared/_Pager.cshtml", pager)
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-12">
+                        Hiện chưa có sản phẩm nào trong mục sản phẩm yêu thích.<a href="/">Về trang chủ</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+</div>

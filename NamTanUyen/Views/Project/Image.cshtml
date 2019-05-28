@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NamTanUyen.Models.ProjectImage>
+@section css{
+
+    <link href="~/Content/home.min.css" rel="stylesheet" />
+
+}
+@section js{
+
+    <script src="~/Scripts/home.min.js"></script>
+}
+<div class="container">
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Hình ảnh dự án</li>
+        </ol>
+    </nav>
+</div>
+<div class="container my-3 imagepage">
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+
+                <div class="col-md-3">
+                    <div class="projectimage-item @(item.IsVideo?"videoitem":string.Empty)">
+                        <a data-fancybox="gallery" data-caption="@item.Caption" href="@(item.IsVideo?item.VideoUrl:item.ImageUrl)" class="@(!string.IsNullOrEmpty(item.Caption)?"item-image":string.Empty)">
+                            @if (item.IsVideo)
+                            {
+                                <i class="fa fa-4x fa-youtube-play"></i>
+                            }
+                            <img src="@item.ImageUrl" alt="@item.Caption" />
+                            @if (!string.IsNullOrEmpty(item.Caption))
+                            {
+                                <div class="item-content">
+                                    <p class="two-row">@item.Caption</p>
+                                </div>
+                            }
+                        </a>
+
+
+                    </div>
+
+                </div>
+            }
+        }
+    </div>
+</div>
+@Html.Partial("_Contact")

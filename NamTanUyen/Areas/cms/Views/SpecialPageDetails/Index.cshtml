@@ -1,0 +1,44 @@
+﻿@model IEnumerable<NamTanUyen.Models.SpecialPageDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create",new { id= ViewBag.SPecialPageId})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SpecialPage.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SpecialPage.Title)
+        </td>
+        <td>
+            <img src="@item.ImageUrl" width="150" alt="" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SpecialPageDetailId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SpecialPageDetailId })
+        </td>
+    </tr>
+}
+
+</table>

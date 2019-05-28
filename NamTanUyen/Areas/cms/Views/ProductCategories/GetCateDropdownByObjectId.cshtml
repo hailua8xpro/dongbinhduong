@@ -1,0 +1,11 @@
+﻿@model IEnumerable<NamTanUyen.Models.ProductCategory>
+<select class="form-control" name="ProductCategoryId" id="ProductCategoryId">
+    <option value="0">Chọn loại sản phẩm</option>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <option value="@item.ProductCategoryId">@item.ProductCategoryName</option>
+        }
+    }
+</select>

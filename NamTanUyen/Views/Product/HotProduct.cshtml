@@ -1,0 +1,64 @@
+﻿@model IEnumerable<NamTanUyen.Models.Product>
+@if (Model != null && Model.Any())
+{
+    <div class="relatedproduct">
+        <h3>Có thể bạn quan tâm</h3>
+        @foreach (var item in Model)
+        {
+            var mainprops = item.ProductProperty.Where(x => x.PropertyDetail.Property.IsMainProp == true);
+            string href = "";
+            if (item.ProductCategory != null && item.ProductGroup != null)
+            {
+                href = string.Format("/{0}/{1}/{2}/{3}/{4}", item.ProductObject.ProductObjectUrl, item.ProductCategory.ProductCategoryNameUrl, item.ProductGroup.ProductGroupUrl, item.ProductId, item.ProductNameUrl);
+            }
+            else if (item.ProductGroup == null)
+            {
+                href = string.Format("/{0}/{1}/{2}/{3}", item.ProductObject.ProductObjectUrl, item.ProductCategory.ProductCategoryNameUrl, item.ProductId, item.ProductNameUrl);
+            }
+            else
+            {
+                href = string.Format("/{0}/{1}/{2}", item.ProductObject.ProductObjectUrl, item.ProductId, item.ProductNameUrl);
+            }
+            <div class="clearfix mb-3">
+                <div class="wrrpl">
+                    <a href="@href">
+                        <img src="@item.ImageUrl" alt="@item.ProductName" />
+                    </a>
+                </div>
+                <div class="wrrpr">
+                    <div><a href="@href">@item.ProductName</a></div>
+                    <p class="price">
+                        @if (item.Price.HasValue && item.Price.Value>0)
+                        {
+                            @:Giá: <strong>@Library.Helper.CommonHelper.FormatCurrency(item.Price.Value).Replace(",00", string.Empty)</strong>
+	}
+                        else
+                        {
+                            @:Giá: <strong>Đang cập nhật</strong>
+                        }
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section js{
+    <script>
+        $(document).ready(function () {
+            $('#ProductObjectID').change(function () {
+                $('#po').val($(this).val());
+                $('#frmPrFilter').submit();
+            })
+            $('#ProductCategoryID').change(function () {
+                $('#pc').val($(this).val());
+                $('#frmPrFilter').submit();
+            })
+            $('#ProductGroupID').change(function () {
+                $('#pg').val($(this).val());
+                $('#frmPrFilter').submit();
+            })
+
+        })
+    </script>
+}

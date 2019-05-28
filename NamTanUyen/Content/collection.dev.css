@@ -1,0 +1,28 @@
+﻿.list-collection .collection-item{
+	text-align:center;
+}
+.list-collection .collection-item img{
+	width:100%;
+}
+.list-collection .collection-item .collection-name{
+	margin-top:1em;
+}
+.list-collection .collection-item .collection-name a{
+	font-size:18px;
+	text-transform:uppercase;
+	font-weight:600;
+	color:#333;
+}
+.list-collection div[class^="col-"]{
+	margin-bottom:30px;
+}
+.btnviewmore{
+	border:solid 1px #bd8e26;
+	color:#bd8e26;
+	padding:5px 10px;
+}
+.btnviewmore:hover{
+	color:#a0771b;
+	border:solid 1px #a0771b;
+
+}

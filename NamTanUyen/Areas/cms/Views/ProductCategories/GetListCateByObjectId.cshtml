@@ -1,0 +1,26 @@
+﻿@model IEnumerable<NamTanUyen.Models.ProductCategory>
+    @if (Model != null && Model.Any())
+    {
+        <ul class="list-unstyled">
+            @foreach (var item in Model)
+            {
+                var groups = item.ProductGroup.Where(x => x.IsActive == true);
+                <li>
+                    <label  class="font-weight-bold"> <input class="parent-check" type="checkbox" value="@item.ProductCategoryId" />    @item.ProductCategoryName</label>
+                    @if (groups != null && groups.Any())
+                    {
+                        <ul style="margin-left:15px;" class="list-unstyled">
+                            @foreach (var item1 in groups)
+                            {
+                                <li>
+                                    <label>
+                                        <input type="checkbox" class="child-check" data-cateId="@item.ProductCategoryId" value="@item1.ProductGroupId" /> @item1.ProductGroupName
+                                    </label>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        </ul>
+    }

@@ -1,0 +1,114 @@
+[
+  {
+    "outputFileName": "Content/home.css",
+    "inputFiles": [
+      "Content/bootstrap.css",
+      "Content/font-awesome.css",
+      "Content/lib/owlcarousel2/assets/owl.carousel.css",
+      "Content/lib/owlcarousel2/assets/owl.theme.default.css",
+      "Content/lib/fancybox/jquery.fancybox.css",
+
+      "Content/global.css",
+      "Content/menu.dev.css",
+      "Content/reponsive.css",
+      "Content/home.dev.css",
+      "Content/productitem.css",
+      "Content/onlinesupport.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/productdetail.css",
+    "inputFiles": [
+      "Content/bootstrap.css",
+      "Content/font-awesome.css",
+      "Content/lib/fotorama-4.6.4/fotorama.css",
+      "Content/global.css",
+      "Content/reponsive.css",
+      "Content/menu.dev.css",
+      "Content/product.dev.css",
+      "Content/productitem.css",
+      "Content/onlinesupport.css",
+      "Content/productdetail.dev.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/product.css",
+    "inputFiles": [
+      "Content/bootstrap.css",
+      "Content/font-awesome.css",
+      "Content/global.css",
+      "Content/menu.dev.css",
+      "Content/reponsive.css",
+      "Content/product.dev.css",
+      "Content/onlinesupport.css",
+      "Content/productitem.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/news.css",
+    "inputFiles": [
+      "Content/bootstrap.css",
+      "Content/font-awesome.css",
+      "Content/global.css",
+      "Content/menu.dev.css",
+      "Content/reponsive.css",
+      "Content/onlinesupport.css",
+      "Content/news.dev.css"
+    ]
+  },
+  {
+    "outputFileName": "Content/contact.css",
+    "inputFiles": [
+      "Content/bootstrap.css",
+      "Content/font-awesome.css",
+      "Content/global.css",
+      "Content/menu.dev.css",
+      "Content/reponsive.css",
+      "Content/onlinesupport.css",
+      "Content/Contact.dev.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/new.js",
+    "inputFiles": [
+      "Scripts/jquery-2.0.0.min.js",
+      "Areas/cms/Content/cms_theme/vendor/popper/popper.min.js",
+      "Scripts/bootstrap.js",
+      "Scripts/global.js"
+    ]
+  },
+
+  {
+    "outputFileName": "Scripts/home.js",
+    "inputFiles": [
+      "Scripts/jquery-2.0.0.min.js",
+      "Areas/cms/Content/cms_theme/vendor/popper/popper.min.js",
+      "Scripts/bootstrap.js",
+      "Content/lib/owlcarousel2/owl.carousel.js",
+      "Content/lib/fancybox/jquery.fancybox.js",
+      "Scripts/global.js",
+      "Scripts/home.dev.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/product.js",
+    "inputFiles": [
+      "Scripts/jquery-2.0.0.min.js",
+      "Areas/cms/Content/cms_theme/vendor/popper/popper.min.js",
+      "Scripts/bootstrap.js",
+      "Scripts/global.js",
+      "Scripts/product.dev.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/productdetail.js",
+    "inputFiles": [
+      "Scripts/jquery-2.0.0.min.js",
+      "Areas/cms/Content/cms_theme/vendor/popper/popper.min.js",
+      "Scripts/bootstrap.js",
+      "Content/lib/fotorama-4.6.4/fotorama.js",
+      "Scripts/global.js",
+      "Scripts/productdetail.dev.js"
+    ]
+  }
+]

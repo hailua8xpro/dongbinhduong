@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NamTanUyen.Models.ProductObject>
+    @if (Model != null && Model.Any())
+    {
+        <div class="d-none d-md-block mb-2">
+            <ul class="maincate">
+                @foreach (var item in Model)
+                {
+                    string cssclass = "";
+                    if (item.ProductObjectId== ViewBag.ObjectId)
+                    {
+                        cssclass = "class=active";
+                    }
+                    <li @cssclass>
+                        <a href="/@item.ProductObjectUrl">@item.ProductObjectName</a>
+                        @if (item.ProductGroup!=null && item.ProductGroup.Any())
+                        {
+                            var groups = item.ProductGroup.Where(x => x.IsActive == true).OrderByDescending(x => x.CreatedDate);
+                            if (groups != null && groups.Any())
+                            {
+                                <ul>
+                                    @foreach (var item1 in groups)
+                                    {
+                                        string cssclass1 = "";
+                                        if (item1.ProductGroupId == ViewBag.GroupId)
+                                        {
+                                            cssclass1 = "class=active";
+                                        }
+                                        <li @cssclass1>
+                                            <a href="/@item.ProductObjectUrl/@item1.ProductGroupId/@item1.ProductGroupUrl">@item1.ProductGroupName</a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+
+                        }
+                    </li>
+                }
+            </ul>
+            </div>
+            }

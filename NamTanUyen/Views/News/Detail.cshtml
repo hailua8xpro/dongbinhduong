@@ -1,0 +1,68 @@
+﻿@model NamTanUyen.Models.News
+@{
+    var hotnews = ViewBag.HotNews as IEnumerable<NamTanUyen.Models.News>;
+
+}
+@section css{
+ <link href="~/Content/news.min.css" rel="stylesheet" />
+}
+
+@section js{
+
+    <script src="~/Scripts/new.min.js"></script>
+}
+
+<div class="container">
+    <div class="breadcrumb pl-0 my-2">
+        <a class="green" href="/" title="Return to Home">Trang chủ &nbsp;</a>
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <a class="green" href="/tin-tuc" title="Tin tức">Tin tức &nbsp;</a>
+        <span class="fa fa-angle-right">&nbsp;</span>
+        <span class="navigation_page">
+            @Model.Title
+        </span>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-9">
+            <div class="shadow p-3 mb-3">
+                <h1>@Model.Title</h1>
+                <p><small><i class="fa fa-calendar"></i> @string.Format("{0:dd/MM/yyyy}", Model.CreatedDate)</small></p>
+                <blockquote class="blockquote">
+                    <p class="mb-0">@Model.Summary</p>
+                </blockquote>
+                <div class="newsdetailcontent">
+                    @Html.Raw(Model.Content)
+                    @Html.Action("ContactInfo","Common")
+                </div>
+                <div class="fb-comments" data-width="100%" data-href="@(ViewBag.MetaModel.URL)" data-numposts="5"></div>
+            </div>
+        </div>
+        <div class="col-md-3 pl-0">
+            @if (hotnews != null && hotnews.Any())
+            {
+                <div class="shadow latestnews">
+                    <div class="wrheader">  <h3 class="py-1"> Nhiều Người Xem</h3></div>
+
+                    @foreach (var item in hotnews)
+                {
+                        <div class="clearfix mb-3 news-item">
+                            <div class="wrlnl">
+                                <a href="/tin-tuc/@item.NewsUrl-@item.NewsId"><img src="@item.ImageUrl" alt="@item.Title" width="70" height="70" /></a>
+
+                            </div>
+                            <div class="wrlnr">
+                                <h4>
+                                    <a href="/tin-tuc/@item.NewsUrl-@item.NewsId">
+                                        @item.Title
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                    }
+
+                </div>
+    </div>
+</div>
+@Html.Partial("_Contact")

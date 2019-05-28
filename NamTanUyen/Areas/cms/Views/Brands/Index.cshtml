@@ -1,0 +1,46 @@
+﻿@model IEnumerable<NamTanUyen.Models.Brand>
+
+@{
+    ViewBag.Title = "Thương hiệu";
+}
+
+<h2>Thương hiệu</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrandName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            <img src="@item.ImageUrl" width="100" alt="" />
+        </td>
+        <td>@Html.ActionLink("Bảng giá","Index","PriceLists",new {brandId=item.BrandId },null)</td>
+        <td>
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { id=item.BrandId }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.BrandId }) |*@
+            @Html.ActionLink("Xóa", "Delete", new { id=item.BrandId })
+        </td>
+    </tr>
+}
+
+</table>

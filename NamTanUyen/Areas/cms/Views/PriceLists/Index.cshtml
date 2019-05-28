@@ -1,0 +1,87 @@
+﻿@model IEnumerable<NamTanUyen.Models.PriceList>
+
+@{
+    ViewBag.Title = "Bảng giá";
+}
+
+<h2>Bảng giá</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create",new {brandId= ViewBag.BrandId })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Brand.BrandName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Metakeywords)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MetaDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedUserId)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Brand.BrandName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Metakeywords)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MetaDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedUserId)
+        </td>*@
+        <td>
+            @Html.ActionLink("Chỉnh sửa", "Edit", new { id=item.PriceListId }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.PriceListId }) |*@
+            @Html.ActionLink("Xóa", "Delete", new { id=item.PriceListId })
+        </td>
+    </tr>
+}
+
+</table>

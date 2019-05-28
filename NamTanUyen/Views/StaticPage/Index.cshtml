@@ -1,0 +1,33 @@
+﻿@model NamTanUyen.Models.StaticPage
+@section css{
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/global.css" rel="stylesheet" />
+    <link href="~/Content/news.dev.css" rel="stylesheet" />
+    <link href="~/Content/responsive.css" rel="stylesheet" />
+
+}
+
+@section js{
+
+    <script src="~/Scripts/jquery-2.0.0.min.js"></script>
+
+    <script src="~/Areas/cms/Content/cms_theme/vendor/popper/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/global.js"></script>
+}
+<div class="page-banner">
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.PageName</li>
+        </ol>
+    </nav>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+</div>

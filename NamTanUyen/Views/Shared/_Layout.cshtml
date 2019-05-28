@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+@{
+    NamTanUyen.ViewModels.MetaModel meta = ViewBag.MetaModel as NamTanUyen.ViewModels.MetaModel;
+    var db = new NamTanUyen.Models.JewelryContext();
+    var carts = Session["SessionCart"] as List<NamTanUyen.ViewModels.CartItem>;
+    var cartcount = carts == null ? 0 : carts.Count;
+    var basecontroller = new NamTanUyen.Controllers.BaseController();
+    var member = basecontroller.GetCurrentUser();
+    var staticpages = db.StaticPages.Where(x => x.IsActive == true);
+    var productobjects = db.ProductObjects.Where(x => x.IsActive == true);
+    var commoninfo = db.CommonInfoes.FirstOrDefault();
+    ViewBag.CommonInfo = commoninfo;
+
+    var newscategory = db.NewsCategories.Where(x => x.IsActive == true).OrderBy(x => x.OrderIndex);
+    string[] arrphone = commoninfo == null || string.IsNullOrEmpty(commoninfo.Phone) ? null : commoninfo.Phone.Split(',');
+    //var callcount = db.ViewCounts.Count();
+    //var callcounttoday = db.ViewCounts.Where(x => x.CreatedDate.Date == DateTime.Now.Date);
+}
+<html lang="vi">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @if (meta != null)
+    {
+        <title>@Html.Raw(meta.Title) - KDCNamTanUyen.vn</title>
+        <meta name="keywords" content="@Html.Raw(meta.Keywords)">
+        <meta name="description" content="@Html.Raw(meta.Description)">
+        <meta property="og:url" itemprop="url" content="@meta.URL" />
+
+        <meta property="og:title" content="@Html.Raw(meta.Title)" />
+        <meta property="og:description" content="@Html.Raw(meta.Description)" />
+        <meta property="og:image" content="http://@(Request.Url.Host+"/"+meta.ImageURL)" />
+    }
+    <meta content="INDEX,FOLLOW" name="robots" />
+    <meta name="copyright" content="" />
+    <meta name="author" content="" />
+    <meta name="GENERATOR" content="" />
+    <meta http-equiv="audience" content="General" />
+    <meta name="resource-type" content="Document" />
+    <meta name="distribution" content="Global" />
+    <meta name="revisit-after" content="1 days" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="content-language" content="vi" />
+    <meta property="og:site_name" content="@Request.Url.Host" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="fb:app_id" content="1617621881689772" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <link rel="icon" type="image/jpg" sizes="20x20" href="~/favicon.png">
+    @RenderSection("css", false)
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-76628755-12"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-76628755-12');
+    </script>
+
+
+</head>
+@*<body data-callcount="@callcount" data-callcount-today="@callcounttoday">*@
+<body>
+    <div id="fb-root"></div>
+    <header>
+        <div class="header-mid d-block d-md-none">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="header-mid-wrap clearfix">
+                            <a href="javascript:" class="btnmenu"><i></i> <span>Menu</span></a>
+                            <a href="/" class="logo">
+                                <i class="fa fa-2x fa-home"></i>
+                            </a>
+                            <div class="wr-cart-count">
+                                <a href="@commoninfo.FaceBook" class="fb"><i class="fa fa-facebook-official"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom container d-none d-md-block">
+            <div class="row">
+                <div class="col-md-9">
+                    <ul class="list-unstyled list-inline mb-0">
+                        <li class="list-inline-item lilogo">
+                            <a href="/" class="logo">
+                                <i class="fa fa-2x fa-home"></i> <span>datnendongbinhduong.net</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item"><a href="/tin-tuc/ban-tin-du-an/khu-do-thi-dong-binh-duong-sieu-du-an-khu-do-thi-22">Giới thiệu</a></li>
+                        <li class="list-inline-item"><a href="/hinh-anh">Hình Ảnh Dự Án</a></li>
+                        <li class="list-inline-item"><a href="/video">Video Dự Án</a></li>
+                        <li class="list-inline-item @(newscategory!=null?"toggle":string.Empty)">
+                            <a href="/tin-tuc">
+                                Tin tức
+                                @if (newscategory != null && newscategory.Any())
+                                {
+                                    <i class="fa fa-angle-down"></i>
+                                }
+                            </a>
+                            @if (newscategory != null && newscategory.Any())
+                            {
+                                <div class="dropdown-menu-custom menu-dropdown">
+                                    <div class="wrmenuitem">
+                                        <div class="dropCarotBox"><div class="carotIcon"></div></div>
+                                        <div class="wrul">
+                                            <ul class="list-unstyled">
+                                                @foreach (var item in newscategory)
+                                                {
+                                                    <li>
+                                                        <a href="/tin-tuc/@item.CategoryUrl">@item.CategoryName</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="col-md-3 text-right">
+                    <ul class="list-unstyled list-inline mb-0">
+                        <li class="list-inline-item"><a class="btncorp" href="/lien-he"><i class="fa fa-heart-o"></i> Liên Hệ</a></li>
+                        <li class="list-inline-item">
+                            <a href="@commoninfo.FaceBook" class="fb"><i class="fa fa-facebook-official"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobilemenu">
+        <div class="msearchbox">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 msearchbox-wr">
+                        <form action="tim-kiem">
+                            <input type="text" class="search-input" name="kw" value="" placeholder="Tìm kiếm" />
+                            <button><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="list-unstyled ulpomobile">
+                        <li><a href="/tin-tuc/ban-tin-du-an/gioi-thieu-du-an-trong-diem-khu-dan-cu-nam-tan-uye-1">Giới thiệu</a></li>
+                        <li><a href="/hinh-anh">Hình Ảnh Dự Án</a></li>
+                        <li><a href="/video">Video Dự Án</a></li>
+                        <li>
+                            <a data-toggle="collapse" href="#collapseNews">Tin tức <i class="fa fa-angle-down"></i></a>
+                            <ul class="collapse list-unstyled pl-1" id="collapseNews">
+                                <li><a href="/tin-tuc">Tất cả</a></li>
+                                @if (newscategory != null && newscategory.Any())
+                                {
+                                    foreach (var item in newscategory)
+                                    {
+                                        <li>
+                                            <a href="/tin-tuc/@item.CategoryUrl">@item.CategoryName</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    <footer>
+        <div class="container-fluid">
+            <div class="footer-top">
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li class="lead">Liên hệ</li>
+                            <li class="mb-2"><strong>Công ty TNHH Đầu tư - Xây dựng - Thương mại Địa ốc Thuận Thiên</strong></li>
+                            <li>MST: 3702718181</li>
+                            @if (commoninfo != null)
+                            {
+                                <li>Địa chỉ: @commoninfo.Address</li>
+                                if (arrphone != null)
+                                {
+
+                                    <li class="lstphone">
+                                        Điện thoại:
+                                        @foreach (var item in arrphone)
+                                        {
+                                            <a href="tel:@item" onclick="AddViewCount('@item')">@item</a>
+
+                                        }
+                                    </li>
+                                }
+
+                                <li>Email: <a href="mailto:@commoninfo.Email">@commoninfo.Email</a></li>
+                            }
+
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="list-unstyled">
+                            <li class="lead"> Liên Kết </li>
+                            <li><a href="/tin-tuc/ban-tin-du-an">Bản tin dự án</a></li>
+                            <li><a href="/tin-tuc/ban-tin-du-an/khu-do-thi-dong-binh-duong-sieu-du-an-khu-do-thi-22">Giới thiệu</a></li>
+                            <li><a href="/hinh-anh">Hình Ảnh Dự Án</a></li>
+                            <li><a href="/video">Video Dự Án</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-2">
+                        <ul class="list-unstyled">
+                            <li class="lead">
+                                Trợ giúp
+                            </li>
+                            <li><a href="/tin-tuc">Tin tức</a></li>
+                            <li><a href="/lien-he">Liên hệ</a></li>
+                            @if (staticpages != null && staticpages.Any())
+                            {
+                                foreach (var item in staticpages)
+                                {
+                                    <li><a href="/cong-quynh/@item.PageUrl">@item.PageName</a></li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="list-unstyled">
+                            <li class="lead">
+                                Kết nối với chúng tôi
+                            </li>
+                            <li>
+                                <ul class="list-inline list-unstyled social-nav">
+                                    <li class="list-inline-item"><a href="@commoninfo.FaceBook"><i class="fa fa-2x fa-facebook-square"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-2x fa-plus-square"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-2x fa-youtube-square"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-2x fa-twitter-square"></i></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bt">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        @if (commoninfo != null)
+                        {
+                            @:© @commoninfo.FullName @DateTime.Now.Year
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="dlding"><span class="throbber"></span><p>Đang xử lý... Vui lòng chờ trong giây lát.</p></div>
+    <div class="modal" tabindex="-1" role="dialog" id="messageModel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="gototop"><i class="fa fa-angle-up"></i></a>
+        @if (arrphone != null && arrphone.Length>0)
+        {
+            <div class="online-support ">
+                <div class="dropup force-open">
+
+                    <ul class="dropdown-2-menu dropdown-2-menu-right dropdown-2--support">
+                        <li><a href="tel:@arrphone[0]" onclick="AddViewCount('@arrphone[0]')"><i class="icon-icon-phone"></i> @arrphone[0]</a></li>
+                        <li><a href="https://www.messenger.com/t/kdcdongbinhduong" target="_blank" rel="noopener"><i class="icon-icon-chat"></i> CHAT FB</a></li>
+
+                        <li><a href="http://zalo.me/@arrphone[0].Replace(" ",string.Empty)" target="_blank" rel="noopener"><i class="icon-icon-zalo"></i> CHAT ZALO</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    @RenderSection("js", false)
+</body>
+
+</html>

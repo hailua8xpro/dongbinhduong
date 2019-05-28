@@ -1,0 +1,57 @@
+﻿@section css{
+    <link href="~/Content/contact.min.css" rel="stylesheet" />
+}
+@model NamTanUyen.Models.CommonInfo
+@{
+    string[] arrphone = Model == null || string.IsNullOrEmpty(Model.Phone) ? null : Model.Phone.Split(',');
+}
+@section js{
+
+    <script src="~/Scripts/new.min.js"></script>
+}
+<div class="container">
+    <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Liên hệ</li>
+        </ol>
+    </nav>
+    <div class="row my-3">
+        <div class="col-12 ctinfo">
+            <h1 class="h4 my-3">Công ty TNHH Đầu tư - Xây dựng - Thương mại Địa ốc Thuận Thiên </h1>
+            <div class="bg-light p-3">
+                <p>Mã số thuế: <strong>3702718181</strong></p>
+                <p>Địa chỉ: <strong>Tân Thắng, Tân Bình, Dĩ An, Bình Dương</strong></p>
+                @if (arrphone != null && arrphone.Length > 0)
+                {
+                    <p>Điện thoại: <a href="tel:@arrphone[0]"><strong>@arrphone[0]</strong></a></p>
+
+                }
+                @if (!string.IsNullOrEmpty(Model.Email))
+                {
+                    <p>Email: <a href="mailto:@Model.Email"><strong>@Model.Email</strong></a></p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="wr-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1347.8948024153367!2d106.76837759145259!3d10.940743225539576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDU2JzI2LjciTiAxMDbCsDQ2JzA5LjUiRQ!5e1!3m2!1svi!2s!4v1553066083045" width="600" height="450" frameborder="0" style="border:0;width:100%" allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Yêu cầu gọi lại</h3>
+            <p>Để lại thông tin liên hệ của bạn, chúng tôi sẽ gọi lại ngay</p>
+            <form name="frmContact" id="frmContact" method="post">
+                <input type="text" required name="FullName" placeholder="Họ tên của bạn" value="" />
+                <input type="email" name="Email" placeholder="Email" value="" />
+                <input type="text" required name="Phone" placeholder="Điện thoại" value="" />
+                <textarea name="Comment" id="Comment" rows="4" placeholder="Lời nhắn"></textarea>
+                <div><input type="submit" class="btn btn-primary btn-lg mb-2" value="Gửi liên hệ"></div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<NamTanUyen.Models.Product>
+@{ 
+    var collectiondetails = ViewBag.CollectionDetails as IEnumerable<NamTanUyen.Models.CollectionDetail>;
+    var productlistid = collectiondetails == null ? null : collectiondetails.Select(x => x.ProductId);
+}
+@{
+    ViewBag.Title = "Create";
+}
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>Chọn</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <img src="@item.ImageUrl" width="100" alt="" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td><label for="cbProductId@(item.ProductId)"><input type="checkbox" class="cbPrId" @(productlistid!=null && productlistid.Contains(item.ProductId)? "checked disabled" : string.Empty) name="cbProductId@(item.ProductId)" value="@item.ProductId" />  Chọn</label></td>
+            </tr>
+        }
+
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button id="btnsubmit" class="btn btn-default">Cập nhật</button>
+        </div>
+    </div>
+    var pager = ViewBag.Pager as NamTanUyen.ViewModels.PagerViewModel;
+    if (pager != null && pager.TotalPage > 1)
+    {
+        @Html.Partial("~/Views/Shared/_Pager.cshtml", pager)
+    }
+}
+
+@section js{
+    <script>
+        $(document).ready(function () {
+            $('#btnsubmit').click(function(e) {
+                var select = $('.cbPrId:checked');
+                if ($(select).length<1) {
+                    alert('Vui lòng chọn sản phẩm');
+                    return false;
+                }
+                var collectionid = '@ViewBag.CollectionId';
+                var arr = [];
+                $(select).each(function () {
+                    var prid = $(this).val();
+                    arr.push(prid);
+                })
+                $.ajax({
+                    method:'POST',
+                    url: '/cms/CollectionDetails/Create',
+                    data: { collectionId: collectionid, lstProductId: arr },
+                    beforeSend: function () {
+                        showLoading();
+                    },
+                    success:function() {
+                        hideLoading();
+                        alert("Cập nhật thành công");
+                }
+                })
+                location.reload();
+                return false;
+            })
+        })
+    </script>
+    }

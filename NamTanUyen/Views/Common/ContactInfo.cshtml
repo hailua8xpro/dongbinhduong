@@ -1,0 +1,22 @@
+﻿@model NamTanUyen.Models.CommonInfo
+@{
+    string[] arrphone = Model == null || string.IsNullOrEmpty(Model.Phone) ? null : Model.Phone.Split(',');
+}
+    @if (Model != null)
+    {
+        <div class="container contact-info">
+            <h4 class="h5">Liên hệ văn phòng <strong>Địa Ốc Thuận Thiên</strong> để được tư vấn và sở hữu sản phẩm giá tốt nhất</h4>
+            <p><i class="fa fa-map-marker"></i> Địa chỉ: @Model.Address)</p>
+            <ul class="list-unstyled">
+                <li>Hotline phòng kinh doanh</li>
+                @if (arrphone != null)
+                {
+                    foreach (var item in arrphone)
+                    {
+                        <li><a href="tel:@item" onclick="AddViewCount('@item')"><i class="fa fa-mobile-phone"></i> @item</a></li>
+                    }
+                }
+            </ul>
+        </div>
+
+    }
