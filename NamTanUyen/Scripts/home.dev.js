@@ -8,10 +8,12 @@ $(document).ready(function () {
         autoplay: true,
         autoplayTimeout:8000,
         margin: 0,
+
         rewind:true,
         nav: true,
         navText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
         dots: false,
+        autoHeight: true,
         responsive: {
             0: {
                 items: 1

@@ -49,10 +49,6 @@
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CKFinder, Version=2.6.0.2792, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Content\lib\ckfinder\bin\Release\CKFinder.dll</HintPath>
-    </Reference>
     <Reference Include="effts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EfFts.1.0.0\lib\effts.dll</HintPath>
       <Private>True</Private>
@@ -66,7 +62,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Library.CommonHelper">
-      <HintPath>..\..\Library\Library.CommonHelper\bin\Release\Library.CommonHelper.dll</HintPath>
+      <HintPath>..\..\congquynh\dll\Library.CommonHelper.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
